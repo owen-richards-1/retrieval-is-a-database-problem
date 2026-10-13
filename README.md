@@ -1,4 +1,4 @@
-# mongodb-retrieval-lab
+# retrieval-is-a-database-problem
 
 A small hands-on lab for the talk "Retrieval is a database problem: indexing for
 an AI application, from B-trees to vectors". You build a vector index and a
@@ -35,8 +35,9 @@ is needed.
    https://www.mongodb.com/docs/atlas/mongo-shell-connection
 4. **Configure.** `cp .env.example .env`, then put your connection string in
    `.env`. `.env` is git-ignored.
-5. **Add the query vector.** `vectors/time-travel.js` must define `QUERY_EMBEDDING`
-   (2048 floats). See `vectors/README.md`.
+5. **The query vector is included.** `vectors/time-travel.js` defines
+   `QUERY_EMBEDDING`, the 2048-float "time travel" embedding from the Vector
+   Search quick start, so no embedding API key is needed. See `vectors/README.md`.
 
 ## Run the lab
 
