@@ -3,7 +3,7 @@
 A small hands-on lab for the talk "Retrieval is a database problem: indexing for
 an AI application, from B-trees to vectors". You build a vector index and a
 text index on the `sample_mflix.embedded_movies` sample data on an Atlas Free
-cluster, then run nine short `mongosh` scripts: ANN vs exact search, filtered
+cluster, then run ten short `mongosh` scripts: a B-tree before/after, ANN vs exact search, filtered
 search, hybrid search with `$rankFusion`, and `explain()`. No embedding API key
 is needed.
 
@@ -43,6 +43,10 @@ is needed.
 
 Run each with `./run.sh scripts/NAME.js`.
 
+0. `00-lynch-btree.js` - the index you already know: `find({ directors: "David Lynch" })`
+   explained without an index (COLLSCAN, 3,483 documents examined) and with a
+   B-tree on `directors` (one key, one document); then the same with a sort and
+   an Equality-Sort-Range compound index (no SORT stage). Drops its indexes after.
 1. `01-inspect.js` - count, one document, the vector field's type and dimensions.
    Notice: no index but `_id` (so anything else is a collection scan), and the
    vectors are stored as binary data.

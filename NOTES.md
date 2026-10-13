@@ -28,6 +28,18 @@ A side note for the talk: the one David Lynch film in this collection is
 Dune (1984). Its nearest neighbours by plot are The Scorpion King, Metalstorm,
 Krull, Starcrash and three Star Wars films.
 
+## The B-tree, for comparison (script 00)
+
+| Query | Plan | Keys examined | Docs examined |
+|------|------|---------------|---------------|
+| `find({ directors: "David Lynch" })`, no index | COLLSCAN | 0 | 3483 |
+| same, with `{ directors: 1 }` | FETCH -> IXSCAN | 1 | 1 |
+| same + `runtime < 130`, sorted by year, no index | SORT -> COLLSCAN | 0 | 3483 |
+| same, with `{ directors: 1, year: 1, runtime: 1 }` | FETCH -> IXSCAN, no SORT | 2 | 0 |
+
+The last row returns nothing (Dune runs 137 minutes), which is the point: the
+index alone answered it without touching a document.
+
 ## Results
 
 | Step | Rank 1 (score) | Rank 2 (score) | Rank 3 (score) |

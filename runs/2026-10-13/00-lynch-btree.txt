@@ -1,0 +1,31 @@
+films by David Lynch in this collection: Dune (1984)
+
+== without an index: COLLSCAN ==
+winning plan:        COLLSCAN
+documents returned:  1
+index keys examined: 0
+documents examined:  3483
+execution time (ms): 5
+
+created index { directors: 1 } (a B-tree; `directors` is an array, so it is a multikey index)
+
+== with the index: IXSCAN ==
+winning plan:        FETCH -> IXSCAN
+documents returned:  1
+index keys examined: 1
+documents examined:  1
+execution time (ms): 1
+
+== sorted query, no index: COLLSCAN + SORT ==
+winning plan:        SORT -> COLLSCAN
+in-memory SORT:      yes
+index keys examined: 0
+documents examined:  3483
+
+== sorted query with the ESR index { directors: 1, year: 1, runtime: 1 } ==
+winning plan:        FETCH -> IXSCAN
+in-memory SORT:      no
+index keys examined: 2
+documents examined:  0
+
+dropped the indexes again; regular indexes now: _id_
