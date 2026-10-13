@@ -24,6 +24,12 @@ indexes reached READY in under a minute. Raw output of every script is in
    0.5/61 = 0.0082, which is why the fused list splits into "found by both"
    (above 0.015) and "found by one" (below 0.009).
 
+One more count, run the same day in mongosh: only 4 of the 3,483 documents
+contain the literal phrase "time travel" in `plot` or `title`
+(`countDocuments({ $or: [ { plot: /time travel/i }, { title: /time travel/i } ] })`),
+which is why the lexical list for that query is short and odd while the
+vector list is long.
+
 A side note for the talk: the one David Lynch film in this collection is
 Dune (1984). Its nearest neighbours by plot are The Scorpion King, Metalstorm,
 Krull, Starcrash and three Star Wars films.
