@@ -1,0 +1,20 @@
+{
+  "winningPlan": {
+    "stage": "FETCH",
+    "inputStage": {
+      "stage": "IXSCAN",
+      "indexName": "directors_1",
+      "keyPattern": {
+        "directors": 1
+      },
+      "isMultiKey": true
+    }
+  },
+  "executionStats": {
+    "nReturned": 1,
+    "totalKeysExamined": 1,
+    "totalDocsExamined": 1,
+    "executionTimeMillis": 1
+  }
+}
+index dropped; remaining: _id_

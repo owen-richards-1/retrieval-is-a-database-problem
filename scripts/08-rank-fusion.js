@@ -10,7 +10,7 @@ const results = db.embedded_movies.aggregate([
     $rankFusion: {
       input: {
         pipelines: {
-          vectorPipeline: [
+          semantic: [
             {
               $vectorSearch: {
                 index: "vector_index",
@@ -21,7 +21,7 @@ const results = db.embedded_movies.aggregate([
               }
             }
           ],
-          fullTextPipeline: [
+          lexical: [
             {
               $search: {
                 index: "default",
@@ -32,7 +32,7 @@ const results = db.embedded_movies.aggregate([
           ]
         }
       },
-      combination: { weights: { vectorPipeline: 0.5, fullTextPipeline: 0.5 } },
+      combination: { weights: { semantic: 0.5, lexical: 0.5 } },
       scoreDetails: true
     }
   },
