@@ -18,4 +18,12 @@ const plan = db.embedded_movies.explain("executionStats").aggregate([
   }
 ]);
 
-print(JSON.stringify(plan, null, 2));
+// The plan echoes the full 2048-float query vector under `command`; replace it
+// with a marker so the output stays readable. printjson renders Long values
+// as numbers (JSON.stringify would show them as {high, low}).
+function trimVectors(o) {
+  if (Array.isArray(o) && o.length === 2048) return "<2048 floats omitted>";
+  if (o && typeof o === "object") for (const k of Object.keys(o)) o[k] = trimVectors(o[k]);
+  return o;
+}
+printjson(trimVectors(plan));

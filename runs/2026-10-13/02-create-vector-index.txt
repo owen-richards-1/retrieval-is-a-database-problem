@@ -1,0 +1,7 @@
+Index creation requested. Waiting for READY...
+[0s] vector_index status: PENDING
+[5s] vector_index status: PENDING
+[10s] vector_index status: PENDING
+[15s] vector_index status: PENDING
+[20s] vector_index status: PENDING
+[25s] vector_index status: READY

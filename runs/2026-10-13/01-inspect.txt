@@ -1,0 +1,17 @@
+documents: 3483
+indexes (regular, not search): _id_
+
+-- one document --
+title:     Scarface
+year:      1932
+genres:    ["Action","Crime","Drama"]
+directors: ["Howard Hawks","Richard Rosson"]
+
+-- plot_embedding_voyage_3_large --
+typeof:              object
+Array.isArray:       false
+instanceof Binary:   true
+dims:                2048
+
+-- David Lynch --
+Dune (1984)

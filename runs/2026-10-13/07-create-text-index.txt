@@ -1,0 +1,10 @@
+Index creation requested. Waiting for READY...
+[0s] default status: PENDING
+[5s] default status: PENDING
+[10s] default status: PENDING
+[15s] default status: PENDING
+[20s] default status: PENDING
+[25s] default status: PENDING
+[30s] default status: PENDING
+[35s] default status: PENDING
+[40s] default status: READY

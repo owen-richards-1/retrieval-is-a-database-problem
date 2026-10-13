@@ -1,0 +1,11 @@
+TITLE                                   YEAR    SCORE
+About Time                              2013    0.7710106372833252
+Retroactive                             1997    0.760047972202301
+A.P.E.X.                                1994    0.7576861381530762
+Timecop                                 1994    0.7576561570167542
+Back to the Future Part II              1989    0.7521393895149231
+Thrill Seekers                          1999    0.7509932518005371
+Timerider: The Adventure of Lyle Swann  1982    0.7502642869949341
+The Time Machine                        2002    0.7502503395080566
+The Time Traveler's Wife                2009    0.749496340751648
+The Final Countdown                     1980    0.7469133734703064

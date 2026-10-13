@@ -1,0 +1,11 @@
+TITLE                                   YEAR    RRF SCORE
+About Time                              2013    0.01626123744050767
+Timecop                                 1994    0.01562881562881563
+The Time Traveler's Wife                2009    0.015443098123069612
+A.P.E.X.                                1994    0.015165441176470588
+Retroactive                             1997    0.008064516129032258
+From Time to Time                       2009    0.007936507936507936
+The Time Machine                        1960    0.0078125
+Back to the Future Part II              1989    0.007692307692307693
+Thrill Seekers                          1999    0.007575757575757576
+My iz budushchego                       2008    0.007575757575757576

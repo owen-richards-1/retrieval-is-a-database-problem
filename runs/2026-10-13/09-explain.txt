@@ -1,0 +1,239 @@
+{
+  explainVersion: '1',
+  stages: [
+    {
+      '$vectorSearch': {
+        index: 'vector_index',
+        path: 'plot_embedding_voyage_3_large',
+        queryVector: 'redacted',
+        numCandidates: 150,
+        limit: 10,
+        explain: {
+          query: {
+            type: 'WrappedKnnQuery',
+            args: {
+              query: [
+                {
+                  type: 'InstrumentableKnnFloatVectorQuery',
+                  args: {
+                    field: '$type:knnF32Q7/plot_embedding_voyage_3_large',
+                    k: 150
+                  },
+                  stats: {
+                    context: {
+                      millisElapsed: 0
+                    },
+                    match: {
+                      millisElapsed: 0
+                    },
+                    score: {
+                      millisElapsed: 0
+                    }
+                  }
+                },
+                {
+                  type: 'WrappedKnnQuery',
+                  args: {
+                    query: [
+                      {
+                        type: 'DocAndScoreQuery',
+                        args: {},
+                        stats: {
+                          context: {
+                            millisElapsed: 0
+                          },
+                          match: {
+                            millisElapsed: 0
+                          },
+                          score: {
+                            millisElapsed: 0
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  stats: {
+                    context: {
+                      millisElapsed: 0.013717,
+                      invocationCounts: {
+                        createWeight: Long('1'),
+                        createScorer: Long('4')
+                      }
+                    },
+                    match: {
+                      millisElapsed: 0
+                    },
+                    score: {
+                      millisElapsed: 0
+                    }
+                  }
+                }
+              ]
+            },
+            stats: {
+              context: {
+                millisElapsed: 4.741918,
+                invocationCounts: {
+                  vectorExecution: Long('1'),
+                  createWeight: Long('1'),
+                  createScorer: Long('4')
+                }
+              },
+              match: {
+                millisElapsed: 0
+              },
+              score: {
+                millisElapsed: 0
+              }
+            }
+          },
+          collectors: {
+            allCollectorStats: {
+              millisElapsed: 0.108164,
+              invocationCounts: {
+                collect: Long('150'),
+                competitiveIterator: Long('4'),
+                setScorer: Long('4')
+              }
+            }
+          },
+          metadata: {
+            mongotVersion: '1.76.1',
+            mongotHostName: 'atlas-p68tfp-shard-00-02.dkvee.mongodb.net',
+            indexName: 'vector_index',
+            lucene: {
+              totalSegments: 4,
+              totalDocs: 3483
+            }
+          },
+          resourceUsage: {
+            majorFaults: Long('0'),
+            minorFaults: Long('0'),
+            userTimeMs: Long('0'),
+            systemTimeMs: Long('0'),
+            maxReportingThreads: 1,
+            numBatches: 1
+          },
+          luceneVectorSegmentStats: [
+            {
+              id: '_3',
+              executionType: 'Approximate',
+              docCount: 875,
+              visitedDocCount: Long('670'),
+              approximateStage: {
+                millisElapsed: 1.086268
+              }
+            },
+            {
+              id: '_1',
+              executionType: 'Approximate',
+              docCount: 897,
+              visitedDocCount: Long('583'),
+              approximateStage: {
+                millisElapsed: 0.921002
+              }
+            },
+            {
+              id: '_0',
+              executionType: 'Approximate',
+              docCount: 876,
+              visitedDocCount: Long('783'),
+              approximateStage: {
+                millisElapsed: 1.413511
+              }
+            },
+            {
+              id: '_2',
+              executionType: 'Approximate',
+              docCount: 835,
+              visitedDocCount: Long('440'),
+              approximateStage: {
+                millisElapsed: 0.739219
+              }
+            }
+          ],
+          featureFlags: [
+            {
+              featureFlag: 'mongot.featureFlag.enableVectorSearchQueryTimeout',
+              evaluationResult: true,
+              decisiveField: 'RolloutPercentage'
+            },
+            {
+              featureFlag: 'mongot.featureFlag.enableNativeScalarVectorScoring',
+              evaluationResult: false,
+              decisiveField: 'RolloutPercentage'
+            },
+            {
+              featureFlag: 'mongot.featureFlag.enableNativeScalarVectorScoring',
+              evaluationResult: false,
+              decisiveField: 'RolloutPercentage'
+            },
+            {
+              featureFlag: 'mongot.featureFlag.enableNativeScalarVectorScoring',
+              evaluationResult: false,
+              decisiveField: 'RolloutPercentage'
+            },
+            {
+              featureFlag: 'mongot.featureFlag.enableNativeScalarVectorScoring',
+              evaluationResult: false,
+              decisiveField: 'RolloutPercentage'
+            }
+          ]
+        }
+      },
+      nReturned: Long('0'),
+      executionTimeMillisEstimate: Long('15')
+    },
+    {
+      '$_internalSearchIdLookup': {
+        limit: Long('10')
+      },
+      nReturned: Long('0'),
+      executionTimeMillisEstimate: Long('15')
+    }
+  ],
+  queryShapeHash: '97BF562D3F1F2ED899397367C88CF98F7FC008E5DC17F681DF44C1C51CF60844',
+  serverInfo: {
+    host: 'ac-zeftwgo-shard-00-02.gmaxnqj.mongodb.net',
+    port: 27017,
+    version: '8.0.34',
+    gitVersion: '51db4515a6597aedcf6188ee4e48a27e65b065ae'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 16793600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 33554432,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted',
+    internalQueryPlannerIgnoreIndexWithCollationForRegex: 1
+  },
+  command: {
+    aggregate: 'embedded_movies',
+    pipeline: [
+      {
+        '$vectorSearch': {
+          index: 'vector_index',
+          path: 'plot_embedding_voyage_3_large',
+          queryVector: '<2048 floats omitted>',
+          numCandidates: 150,
+          limit: 10
+        }
+      }
+    ],
+    cursor: {},
+    '$db': 'sample_mflix'
+  },
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1791906054, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('EL/BBJTfbaeBQNxldIVuV8n42dg=', 0),
+      keyId: Long('7641623405229244424')
+    }
+  },
+  operationTime: Timestamp({ t: 1791906054, i: 1 })
+}

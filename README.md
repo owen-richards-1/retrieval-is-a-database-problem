@@ -54,8 +54,8 @@ Run each with `./run.sh scripts/NAME.js`.
    same ranking? same scores?
 5. `05-filtered-search.js` - filter by `year` and by `genres`. Notice the filter is
    applied inside the index search, not after it.
-6. `06-own-embedding.js` - use a stored movie's embedding as the query. Untested, see
-   "Check first".
+6. `06-own-embedding.js` - use a stored movie's embedding as the query. Which
+   films sit nearest to Dune (1984)?
 7. `07-create-text-index.js` - creates the `default` full-text index.
 8. `08-rank-fusion.js` - hybrid search: two indexes, one query, merged by
    reciprocal rank fusion.
@@ -76,22 +76,25 @@ Write down what you saw in `NOTES.md`.
 - 100 operations per second.
   https://www.mongodb.com/docs/atlas/reference/free-shared-limitations
 
-## Check first
+## Checked on 13 Oct 2026
 
-These are marked unverified in my notes; test before you rely on them.
+Four things the docs leave open, tested on a Free cluster running 8.0.34
+(details and numbers in `NOTES.md`, raw output in `runs/2026-10-13/`):
 
-- **Own-embedding recipe (script 06).** The docs allow BinData as `queryVector`,
-  but I found no example that does this exact `findOne` then `$vectorSearch`.
-  The `toFloat32Array()` fallback is also unverified.
-- **explain on 8.0 (script 09).** Execution stats for `$vectorSearch` are "New in
-  version 8.1"; Free runs 8.0, so output may be limited.
-- **`exact: true` with `numCandidates`.** The docs only say `numCandidates` is
-  required for ANN, so script 04 omits it. Whether supplying both errors is
-  unstated.
-- **Field name.** The reference page lists `plot_embedding_voyage_3_large`; the
-  hybrid tutorials use `plot_embedding_voyage_4_large`. Run
-  `db.embedded_movies.findOne({}, {plot_embedding_voyage_3_large: 1})` to
-  confirm the field is present on your cluster.
+- **Own-embedding recipe (script 06):** works. A stored `BinData` vector is
+  accepted as `queryVector` with no conversion.
+- **explain on 8.0 (script 09):** `executionStats` does include the mongot
+  stats for `$vectorSearch` on 8.0.34.
+- **`exact: true` with `numCandidates`:** the server rejects it
+  (`"numCandidates" must be omitted when "exact" is set to true`), so script 04
+  omits it.
+- **Field name:** the loaded sample data has `plot_embedding_voyage_3_large`,
+  `plot_embedding_voyage_4_large` and `plot_embedding`. The lab uses the first.
+
+## Runs
+
+`runs/<date>/` holds the output of each script from a real run, so the
+numbers in `NOTES.md` can be checked.
 
 ## Talk
 

@@ -1,0 +1,12 @@
+Movies nearest to "Dune" (by plot embedding):
+TITLE                                   YEAR    SCORE
+The Scorpion King                       2002    0.9371638298034668
+Metalstorm: The Destruction of Jared-S  1983    0.9149785041809082
+Krull                                   1983    0.914583683013916
+Starcrash                               1978    0.910921573638916
+Battle Beyond the Stars                 1980    0.9097309112548828
+Star Wars: Episode IV - A New Hope      1977    0.9068782329559326
+Star Wars: Episode I - The Phantom Men  1999    0.8978815078735352
+Conan the Barbarian                     1982    0.8881170749664307
+Star Wars: Episode VI - Return of the   1983    0.8873536586761475
+Guardians of the Galaxy                 2014    0.887113094329834
