@@ -43,6 +43,7 @@ function summariseSorted(label) {
   const stages = [];
   while (stage) { stages.push(stage.stage); stage = stage.inputStage || (stage.inputStages && stage.inputStages[0]); }
   print("\n== " + label + " ==");
+  print("result:              " + JSON.stringify(coll.find({ directors: "David Lynch", runtime: { $lt: 140 } }, { title: 1, year: 1, runtime: 1, _id: 0 }).sort({ year: 1 }).toArray()));
   print("winning plan:        " + stages.join(" -> "));
   print("in-memory SORT:      " + (stages.includes("SORT") ? "yes" : "no"));
   print("documents returned:  " + s.nReturned);

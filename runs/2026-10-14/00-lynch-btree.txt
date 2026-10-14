@@ -17,6 +17,7 @@ documents examined:  1
 execution time (ms): 1
 
 == sorted query, no index: COLLSCAN + SORT ==
+result:              [{"runtime":137,"title":"Dune","year":1984}]
 winning plan:        SORT -> COLLSCAN
 in-memory SORT:      yes
 documents returned:  1
@@ -24,6 +25,7 @@ index keys examined: 0
 documents examined:  3483
 
 == sorted query with the ESR index { directors: 1, year: 1, runtime: 1 } ==
+result:              [{"runtime":137,"title":"Dune","year":1984}]
 winning plan:        FETCH -> IXSCAN
 in-memory SORT:      no
 documents returned:  1
