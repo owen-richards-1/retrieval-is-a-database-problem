@@ -33,11 +33,11 @@ summarise("with the index: IXSCAN");
 coll.dropIndex({ directors: 1 });
 
 // Part 2: a compound index in Equality, Sort, Range order (ESR).
-// Query: Lynch films under 130 minutes, oldest first. With the index
+// Query: Lynch films under 140 minutes, oldest first (Dune runs 137). With the index
 // { directors: 1, year: 1, runtime: 1 } the plan needs no SORT stage: the
 // index already hands documents back in year order.
 function summariseSorted(label) {
-  const ex = coll.find({ directors: "David Lynch", runtime: { $lt: 130 } }).sort({ year: 1 }).explain("executionStats");
+  const ex = coll.find({ directors: "David Lynch", runtime: { $lt: 140 } }).sort({ year: 1 }).explain("executionStats");
   const s = ex.executionStats;
   let stage = ex.queryPlanner.winningPlan;
   const stages = [];
@@ -45,8 +45,15 @@ function summariseSorted(label) {
   print("\n== " + label + " ==");
   print("winning plan:        " + stages.join(" -> "));
   print("in-memory SORT:      " + (stages.includes("SORT") ? "yes" : "no"));
+  print("documents returned:  " + s.nReturned);
   print("index keys examined: " + s.totalKeysExamined);
   print("documents examined:  " + s.totalDocsExamined);
+  if (label.includes("ESR")) {
+    const ix = ex.queryPlanner.winningPlan.inputStage;
+    print("explain, trimmed (the deck's slide 8):");
+    printjson({ winningPlan: { stage: ex.queryPlanner.winningPlan.stage, inputStage: { stage: ix.stage, indexName: ix.indexName, keyPattern: ix.keyPattern } },
+      executionStats: { nReturned: s.nReturned, totalKeysExamined: s.totalKeysExamined, totalDocsExamined: s.totalDocsExamined, executionTimeMillis: s.executionTimeMillis } });
+  }
 }
 summariseSorted("sorted query, no index: COLLSCAN + SORT");
 coll.createIndex({ directors: 1, year: 1, runtime: 1 });

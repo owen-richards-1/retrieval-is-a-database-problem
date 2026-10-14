@@ -1,0 +1,20 @@
+{
+  winningPlan: {
+    stage: 'FETCH',
+    inputStage: {
+      stage: 'IXSCAN',
+      indexName: 'directors_1_year_1_runtime_1',
+      keyPattern: {
+        directors: 1,
+        year: 1,
+        runtime: 1
+      }
+    }
+  },
+  executionStats: {
+    nReturned: 1,
+    totalKeysExamined: 2,
+    totalDocsExamined: 1,
+    executionTimeMillis: 1
+  }
+}

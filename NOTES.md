@@ -40,11 +40,13 @@ Krull, Starcrash and three Star Wars films.
 |------|------|---------------|---------------|
 | `find({ directors: "David Lynch" })`, no index | COLLSCAN | 0 | 3483 |
 | same, with `{ directors: 1 }` | FETCH -> IXSCAN | 1 | 1 |
-| same + `runtime < 130`, sorted by year, no index | SORT -> COLLSCAN | 0 | 3483 |
-| same, with `{ directors: 1, year: 1, runtime: 1 }` | FETCH -> IXSCAN, no SORT | 2 | 0 |
+| same + `runtime < 140`, sorted by year, no index | SORT -> COLLSCAN | 0 | 3483 |
+| same, with `{ directors: 1, year: 1, runtime: 1 }` | FETCH -> IXSCAN, no SORT | 2 | 1 |
 
-The last row returns nothing (Dune runs 137 minutes), which is the point: the
-index alone answered it without touching a document.
+Both sorted rows return one film, Dune (137 minutes). The 13 Oct run used
+`runtime < 130`, which returned nothing (two keys, zero documents); the range
+was widened on 14 Oct so the slide shows a result. The trimmed explain for the
+indexed sorted query is in `runs/2026-10-14/00-esr-explain.json`.
 
 ## Results
 
