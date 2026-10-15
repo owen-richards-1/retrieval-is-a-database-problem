@@ -1,16 +1,21 @@
 # retrieval-is-a-database-problem
 
 A small hands-on lab for the talk "Retrieval is a database problem: indexing for
-an AI application, from B-trees to vectors". You build a vector index and a
-text index on the `sample_mflix.embedded_movies` sample data on an Atlas Free
-cluster, then run ten short `mongosh` scripts: a B-tree before/after, ANN vs exact search, filtered
-search, hybrid search with `$rankFusion`, and `explain()`. No embedding API key
-is needed.
+an AI application, from B-trees to vectors" (Owen Richards, 15 Oct 2026). The
+talk's point: finding the right data for an AI application is an indexing
+problem, and MongoDB already has the tools. You build a vector index and a
+text index on the `sample_mflix.embedded_movies` sample data (3,483 films) on an
+Atlas Free cluster, then run ten short `mongosh` scripts: a B-tree before/after,
+ANN vs exact search, filtered search, hybrid search with `$rankFusion`, and
+`explain()`. No embedding API key is needed. Recorded output of every script is
+in `runs/`, so you can read the results without running anything.
 
 ## What you need
 
 - A MongoDB Atlas account and a Free cluster
-- `mongosh` (`brew install mongosh`)
+- `mongosh` (`brew install mongosh`). That is the only runtime: the scripts are
+  mongosh scripts, so no Node.js install or `npm install` is needed.
+- A Unix shell (macOS or Linux) for `run.sh`
 - Optional: the Atlas CLI (`brew install mongodb-atlas-cli`)
 
 ## Setup
@@ -34,14 +39,20 @@ is needed.
    also need a database user and an IP access-list entry.
    https://www.mongodb.com/docs/atlas/mongo-shell-connection
 4. **Configure.** `cp .env.example .env`, then put your connection string in
-   `.env`. `.env` is git-ignored.
+   `.env` (one line: `MONGODB_URI="mongodb+srv://..."`). `.env` is git-ignored.
+   `run.sh` reads it and starts `mongosh` for you.
 5. **The query vector is included.** `vectors/time-travel.js` defines
    `QUERY_EMBEDDING`, the 2048-float "time travel" embedding from the Vector
    Search quick start, so no embedding API key is needed. See `vectors/README.md`.
 
 ## Run the lab
 
-Run each with `./run.sh scripts/NAME.js`.
+Run each with `./run.sh scripts/NAME.js`, in order, from the repo root. Only
+scripts 02 and 07 create anything on the cluster that stays: `vector_index`
+(vector, on `plot_embedding_voyage_3_large`: 2048 dimensions, `dotProduct`,
+with `year` and `genres` as filter fields) and `default` (full-text). Script 00
+creates regular indexes but drops them again. Scripts 03, 04, 05, 06, 08 and 09
+need the vector index; 08 also needs the text index, so run 02 and 07 first.
 
 0. `00-lynch-btree.js` - the index you already know: `find({ directors: "David Lynch" })`
    explained without an index (COLLSCAN, 3,483 documents examined) and with a
@@ -66,6 +77,19 @@ Run each with `./run.sh scripts/NAME.js`.
 9. `09-explain.js` - `explain("executionStats")` on the vector query.
 
 Write down what you saw in `NOTES.md`.
+
+### Script to slide
+
+| Script | What the slide quotes |
+|---|---|
+| 00 | Lynch lookup: COLLSCAN examines 3,483 docs; with `directors_1`, 1 key and 1 doc. ESR query (`directors` "David Lynch", `runtime` < 140, sort `year`), index `{directors:1, year:1, runtime:1}`: Dune (1984, 137 min), 2 keys, 1 doc, no SORT stage |
+| 03 | `$vectorSearch`, `numCandidates` 150, `limit` 10; top hit About Time |
+| 04 | Exact search; agrees with 03 on 9 of the top 10 |
+| 05 | Same query, filtered to `year >= 1990` (a declared filter field) |
+| 08 | `$rankFusion` with pipelines `semantic` (`numCandidates` 500, `limit` 20) and `lexical` (`$search` on title and plot, `$limit` 20), weights 0.5 / 0.5, final `$limit` 10; About Time fused score 0.01626 |
+| 04 (error) | `exact: true` with `numCandidates` is rejected: `"numCandidates" must be omitted when "exact" is set to true` (noted in `NOTES.md`; script 04 omits it) |
+
+Scripts 01, 02, 06, 07 and 09 are setup or extras and are not quoted directly.
 
 ## Free-tier limits that shape this lab
 
@@ -98,7 +122,9 @@ Four things the docs leave open, tested on a Free cluster running 8.0.34
 ## Runs
 
 `runs/<date>/` holds the output of each script from a real run, so the
-numbers in `NOTES.md` can be checked.
+numbers in `NOTES.md` can be checked. `runs/2026-10-13/` is the full run;
+`runs/2026-10-14/` re-runs script 00 after its sorted query was widened to
+`runtime < 140` (the 13 Oct version returned no rows).
 
 ## Talk
 
