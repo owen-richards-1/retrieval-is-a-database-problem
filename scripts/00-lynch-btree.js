@@ -1,7 +1,8 @@
 // 00-lynch-btree.js - Part 1 of the talk: the index you already know.
-// One lookup, find({ directors: "David Lynch" }), explained twice: without an
-// index (a collection scan) and with a B-tree index on `directors`. The index
-// is dropped at the end so the collection is back to `_id` only for script 01.
+// One lookup, find({ directors: "David Lynch" }), explained without an index
+// (a collection scan) and with a B-tree on `directors`; then the same lookup
+// with runtime < 140 and a sort by year, with and without an ESR compound index.
+// Both indexes are dropped at the end so the collection is back to `_id` only for script 01.
 db = db.getSiblingDB("sample_mflix");
 const coll = db.embedded_movies;
 const query = { directors: "David Lynch" };

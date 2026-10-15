@@ -1,8 +1,7 @@
-// 09-explain.js - explain() on the vector query from 03.
-// Docs: execution statistics for $vectorSearch are "New in version 8.1"
-// (manual: explain-results). Free clusters run MongoDB 8.0, so the
-// executionStats output may be missing or limited. Record what you see
-// in NOTES.md.
+// 09-explain.js - explain("executionStats") on the vector query from 03.
+// The docs list $vectorSearch execution statistics as "New in version 8.1", but
+// on the Free cluster (8.0.34) the mongot stats are present: see NOTES.md and
+// runs/2026-10-13/09-explain.txt.
 db = db.getSiblingDB("sample_mflix");
 load("vectors/time-travel.js"); // defines QUERY_EMBEDDING
 

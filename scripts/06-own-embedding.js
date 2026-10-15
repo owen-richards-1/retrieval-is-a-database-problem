@@ -1,7 +1,7 @@
 // 06-own-embedding.js - use a stored movie's own embedding as the query.
-// UNVERIFIED-by-docs: the docs say queryVector accepts BinData of the right
-// subtype, and the sample data stores embeddings as binData, but no docs
-// page runs this exact recipe. TEST IT before relying on it.
+// The docs say queryVector accepts BinData of the right subtype and the sample
+// data stores embeddings as binData, but no docs page shows this exact recipe.
+// Checked on 13 Oct 2026: it works (see NOTES.md and runs/2026-10-13/06-own-embedding.txt).
 db = db.getSiblingDB("sample_mflix");
 const TITLE = "Dune"; // change me
 const FIELD = "plot_embedding_voyage_3_large";
